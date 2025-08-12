@@ -1,15 +1,16 @@
 {
-  "name": "bun-lib-template",
-  "module": "models/bun-lib-template.js",
-  "main": "models/bun-lib-template.js",
-  "version": "1.0.1",
+  "name": "dap-http",
+  "module": "models/dap-http.js",
+  "main": "models/dap-http.js",
+  "version": "1.0.0",
   "date": "2025.08.11",
   "type": "module",
   "scripts": {
     "build": "bun ./build/build.js"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "bun-types": "^1.2.20"
   },
   "peerDependencies": {
     "typescript": "^5"
