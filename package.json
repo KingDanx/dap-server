@@ -1,9 +1,9 @@
 {
-  "name": "dap-http",
-  "module": "models/dap-http.js",
-  "main": "models/dap-http.js",
-  "version": "1.0.0",
-  "date": "2025.08.11",
+  "name": "dap-server",
+  "module": "index.js",
+  "main": "index.js",
+  "version": "1.0.1",
+  "date": "2025.08.13",
   "type": "module",
   "scripts": {
     "build": "bun ./build/build.js"

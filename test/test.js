@@ -1,37 +1,26 @@
-import Server from "../models/dap-server";
-import Route from "../models/dap-route";
+import { Server } from "../index";
+import dogs from "./routes/dogs";
+import cats from "./routes/cats";
+import { addCat, addDog } from "./middleware/middleware";
 import path from "path";
 
 const server = new Server();
 
-const dogs = new Route("/dogs");
-
-const middleware = async (req, next) => {
-  console.log(req);
-  req.cat = "heart";
-  return Response.json({ error: "Not Authorized" }, { status: 401 });
-};
-
+server.use(dogs);
+server.use(cats);
 server.get("/", () => Response("ok"));
 server.get("/param/:id", (req) => {
   const { id } = req.params;
-  return Response(id);
+  return Response.json({ id, ...req });
 });
-dogs.get("/", () => Response("dogs"));
+server.delete("/", (req) => Response.json(req));
+server.head("/", () => Response());
+server.options("/", () => Response());
+server.use(addCat);
+server.use(addDog);
+
 await server.static("/html", path.join(import.meta.dirname, "test.html"));
 
-server.listen(3000, () => console.log("ther server has started", server));
-await server.use(dogs);
+server.listen(3000, () => console.log("the server has started"));
 
-// dogs.get("/walk", middleware, (req) => {
-//   console.log(req);
-//   return Response.json({ dog: "jade", cat: req.cat });
-// });
-
-// console.log(dogs.routes["/dogs/walk"]);
-
-// const res = await dogs.routes["/dogs/walk"].GET(
-//   new Request("http://localhost:3000/dogs/walk")
-// );
-
-// console.log(res);
+console.log(server);
