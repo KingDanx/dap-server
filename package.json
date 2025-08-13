@@ -1,8 +1,8 @@
 {
-  "name": "dap-server",
+  "name": "@kingdanx/dap-server",
   "module": "index.js",
   "main": "index.js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "date": "2025.08.13",
   "type": "module",
   "scripts": {
