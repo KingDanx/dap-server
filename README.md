@@ -22,7 +22,7 @@ A fast, middleware-driven HTTP server built on top of **Bun.serve**. DAP Server 
 
 ```
 .
-├─ src/
+├─ models/
 │  ├─ dap-route.js      # Route class: defines routes + middleware chaining
 │  └─ dap-server.js     # Server class: wraps Bun.serve, manages routes, restart
 ├─ test/
