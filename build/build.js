@@ -56,13 +56,10 @@ async function getModels(dirPath) {
  */
 async function getIndex(dirPath) {
   try {
-    const files = await fs.readdir(dirPath);
-    return files
-      .filter((file) => file === "index.js")
-      .map((file) => path.join(dirPath, file));
+    return path.join(dirPath, "index.js");
   } catch (error) {
     console.error(`Error reading directory ${dirPath}:`, error);
-    return [];
+    throw e;
   }
 }
 
@@ -71,8 +68,9 @@ try {
   const models = await getModels(modelPath);
   const indexPath = path.join(import.meta.dirname, "..");
   const index = await getIndex(indexPath);
+  
   await Bun.build({
-    entrypoints: [...index, ...models],
+    entrypoints: [index, ...models],
     outdir: "./dist",
     minify: true,
     target: "node",
