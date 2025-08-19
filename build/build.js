@@ -119,13 +119,13 @@ try {
   switch (true) {
     case values.major:
       const newMajor = bumpVersion(major);
-      json.version = `${newMajor}.${minor}.${build}`;
+      json.version = `${newMajor}.0.0`;
       json.date = versionDateString;
       await writeToJSON();
       break;
     case values.minor:
       const newMinor = bumpVersion(minor);
-      json.version = `${major}.${newMinor}.${build}`;
+      json.version = `${major}.${newMinor}.0`;
       json.date = versionDateString;
       await writeToJSON();
 
