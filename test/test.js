@@ -8,14 +8,14 @@ const server = new Server();
 
 server.use(dogs);
 server.use(cats);
-server.get("/", () => Response("ok"));
+server.get("/", () => new Response("ok"));
 server.get("/param/:id", (req) => {
   const { id } = req.params;
   return Response.json({ id, ...req });
 });
 server.delete("/", (req) => Response.json(req));
-server.head("/", () => Response());
-server.options("/", () => Response());
+server.head("/", () => new Response());
+server.options("/", () => new Response());
 server.use(addCat);
 server.use(addDog);
 

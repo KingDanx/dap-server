@@ -2,9 +2,9 @@ import Route from "../../models/dap-route";
 
 const dogs = new Route("/dogs");
 
-dogs.get("/", () => Response("dogs"));
+dogs.get("/", () => new Response("dogs"));
 
-dogs.post("/", () => Response("post dogs"));
+dogs.post("/", () => new Response("post dogs"));
 
 dogs.get("/walk", (req) => {
   console.log(req);

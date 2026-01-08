@@ -2,11 +2,17 @@
   "name": "@kingdanx/dap-server",
   "module": "index.js",
   "main": "index.js",
-  "version": "1.0.4",
-  "date": "2025.08.19",
+  "version": "1.0.5",
+  "date": "2026.01.08",
   "type": "module",
+  "types": "types/index.d.ts",
+  "files": [
+    "index.js",
+    "types",
+    "models"
+  ],
   "scripts": {
-    "build": "bun ./build/build.js"
+    "build": "npx tsc && bun ./build/build.js"
   },
   "devDependencies": {
     "@types/bun": "latest",
