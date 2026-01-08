@@ -16,7 +16,7 @@ export default class Route {
     /** @type {Middleware[]} */
     middleware: Middleware[];
     /** @type {import("bun").Server|null} */
-    server: import("bun").Server | null;
+    server: Bun.Server<any> | null;
     setServer(server: any): void;
     setRequestIp(req: any): void;
     /**

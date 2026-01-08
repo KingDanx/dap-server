@@ -7,19 +7,47 @@ import Route from "./dap-route.js";
 export default class Server extends Route {
   /**
    * Creates a new Server instance.
-   * @param {Object} [options={}] - Configuration options (currently unused).
+   *
+   * @constructor
+   * @param {Object} [options={}] - Configuration options for the server.
+   * @param {import("bun").Serve.Options<T, R>} [options.bunServerOptions={}] - Options passed directly to Bun.serve().
+   *   See: https://bun.sh/docs/api/http#bun-serve
    */
   constructor({ bunServerOptions = {} } = {}) {
     super();
-    /** @type {Object.<string, any>} */
+
+    /**
+     * Registered routes by path (for quick lookup).
+     * @type {Object.<string, any>}
+     * @private
+     */
     this.routes = {};
-    /** @type {Map<string, Route>} */
+
+    /**
+     * Map of path strings to Route instances (preserves insertion order and allows complex keys).
+     * @type {Map<string, Route>}
+     * @private
+     */
     this.serverRoutes = new Map();
-    /** @type {import("bun").Server|null} */
+
+    /**
+     * The underlying Bun HTTP server instance, or null if not started.
+     * @type {import("bun").Server | null}
+     * @readonly
+     */
     this.server = null;
-    /** @type {Function[]} */
+
+    /**
+     * Array of global middleware functions to execute before route handlers.
+     * @type {Function[]}
+     * @private
+     */
     this.middleware = [];
-    /** @type {Object.<string, any>} */
+
+    /**
+     * Configuration options for Bun.serve().
+     * @type {import("bun").Serve.Options<T, R>}
+     */
     this.bunServerOptions = bunServerOptions;
   }
 
@@ -64,7 +92,7 @@ export default class Server extends Route {
       ...this.bunServerOptions,
       routes: this.routes,
 
-      fetch(req) {
+      fetch() {
         return new Response("Not Found", { status: 404 });
       },
     });

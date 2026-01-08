@@ -5,15 +5,26 @@
 export default class Server extends Route {
     /**
      * Creates a new Server instance.
-     * @param {Object} [options={}] - Configuration options (currently unused).
+     *
+     * @constructor
+     * @param {Object} [options={}] - Configuration options for the server.
+     * @param {import("bun").Serve.Options<T, R>} [options.bunServerOptions={}] - Options passed directly to Bun.serve().
+     *   See: https://bun.sh/docs/api/http#bun-serve
      */
-    constructor({ bunServerOptions }?: Object);
-    /** @type {Map<string, Route>} */
-    serverRoutes: Map<string, Route>;
-    /** @type {Object.<string, any>} */
-    bunServerOptions: {
-        [x: string]: any;
-    };
+    constructor({ bunServerOptions }?: {
+        bunServerOptions?: Bun.Serve.Options<T, R> | undefined;
+    });
+    /**
+     * Map of path strings to Route instances (preserves insertion order and allows complex keys).
+     * @type {Map<string, Route>}
+     * @private
+     */
+    private serverRoutes;
+    /**
+     * Configuration options for Bun.serve().
+     * @type {import("bun").Serve.Options<T, R>}
+     */
+    bunServerOptions: import("bun").Serve.Options<T, R>;
     /**
      * Adds a middleware function or a Route instance to the server.
      * @param {Route|Function} handler - A Route object or a middleware function.
