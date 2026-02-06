@@ -26,6 +26,11 @@ export default class Server extends Route {
      */
     bunServerOptions: import("bun").Serve.Options<T, R>;
     /**
+     * Enable websockets
+     * @type {boolean}
+     */
+    websockets: boolean;
+    /**
      * Adds a middleware function or a Route instance to the server.
      * @param {Route|Function} handler - A Route object or a middleware function.
      * @returns {Promise<void>}

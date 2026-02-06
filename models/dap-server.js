@@ -49,6 +49,12 @@ export default class Server extends Route {
      * @type {import("bun").Serve.Options<T, R>}
      */
     this.bunServerOptions = bunServerOptions;
+
+    /**
+     * Enable websockets
+     * @type {boolean}
+     */
+    this.websockets = bunServerOptions?.websocket ? true : false;
   }
 
   /**
@@ -87,13 +93,21 @@ export default class Server extends Route {
    * @param {Function} [fn=() => null] - Optional callback after the server starts.
    */
   listen(port, fn = () => null) {
+    const websockets = this.websockets;
     this.server = Bun.serve({
       port: port,
       ...this.bunServerOptions,
       routes: this.routes,
 
-      fetch() {
-        return new Response("Not Found", { status: 404 });
+      fetch(req, server) {
+        if (websockets) {
+          const success = server.upgrade(req);
+          if (success) {
+            // Bun automatically returns a 101 Switching Protocols
+            // if the upgrade succeeds
+            return undefined;
+          }
+        }
       },
     });
     this.serverRoutes.forEach((route) => route.setServer(this.server));
