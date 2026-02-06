@@ -101,11 +101,15 @@ export default class Server extends Route {
 
       fetch(req, server) {
         if (websockets) {
-          const success = server.upgrade(req);
+          const success = server.upgrade(req, {
+            data: {
+              headers: req.headers.toJSON(),
+            },
+          });
           if (success) {
             // Bun automatically returns a 101 Switching Protocols
             // if the upgrade succeeds
-            return undefined;
+            return;
           }
         }
       },

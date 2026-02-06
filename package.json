@@ -2,7 +2,7 @@
   "name": "@kingdanx/dap-server",
   "module": "index.js",
   "main": "index.js",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "date": "2026.02.06",
   "type": "module",
   "types": "types/index.d.ts",
