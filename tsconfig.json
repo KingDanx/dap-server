@@ -30,5 +30,5 @@
     "noUnusedParameters": false,
     "noPropertyAccessFromIndexSignature": false
   },
-  "include": ["models/*.js", "index.js"]
+  "include": ["models/*.js", "index.ts", "bun.d.ts"]
 }

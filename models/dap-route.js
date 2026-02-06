@@ -1,7 +1,7 @@
 /**
  * Callback type for middleware functions.
  * @callback Middleware
- * @param {Request} req - The incoming request object.
+ * @param {import("bun").BunRequest & { ip?: string }} req - The incoming request object.
  * @param {Function} next - Function to call the next middleware.
  * @returns {Promise<Response>|Response} The response, or a promise resolving to it.
  */
