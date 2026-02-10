@@ -12,8 +12,9 @@ export default class Server extends Route {
    * @param {Object} [options={}] - Configuration options for the server.
    * @param {import("bun").Serve.Options<T, R>} [options.bunServerOptions={}] - Options passed directly to Bun.serve().
    *   See: https://bun.sh/docs/api/http#bun-serve
+   * @param {string} [options.serverBase] - prefix for all routes
    */
-  constructor({ bunServerOptions = {} } = {}) {
+  constructor({ bunServerOptions = {}, serverBase = "" } = {}) {
     super();
 
     /**
@@ -55,6 +56,12 @@ export default class Server extends Route {
      * @type {boolean}
      */
     this.websockets = bunServerOptions?.websocket ? true : false;
+
+    /**
+     * Prefix to all routes
+     * @type {string}
+     */
+    this.serverBase = serverBase;
   }
 
   /**
@@ -69,6 +76,13 @@ export default class Server extends Route {
         route.addMiddleware(handler);
       });
       return;
+    }
+    if (this.serverBase !== "") {
+      for (const key in handler.routes) {
+        const newKey = this.serverBase + key;
+        handler.routes[newKey] = handler.routes[key];
+        delete handler.routes[key];
+      }
     }
     Object.assign(this.routes, handler.routes);
     this.serverRoutes.set(handler.baseUrl, handler);
@@ -112,6 +126,7 @@ export default class Server extends Route {
             return;
           }
         }
+        return new Response("Not Found", { status: 404 });
       },
     });
     this.serverRoutes.forEach((route) => route.setServer(this.server));

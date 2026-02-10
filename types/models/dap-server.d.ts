@@ -10,9 +10,11 @@ export default class Server extends Route {
      * @param {Object} [options={}] - Configuration options for the server.
      * @param {import("bun").Serve.Options<T, R>} [options.bunServerOptions={}] - Options passed directly to Bun.serve().
      *   See: https://bun.sh/docs/api/http#bun-serve
+     * @param {string} [options.serverBase] - prefix for all routes
      */
-    constructor({ bunServerOptions }?: {
+    constructor({ bunServerOptions, serverBase }?: {
         bunServerOptions?: Bun.Serve.Options<T, R> | undefined;
+        serverBase?: string | undefined;
     });
     /**
      * Map of path strings to Route instances (preserves insertion order and allows complex keys).

@@ -19,10 +19,24 @@ export default class Route {
 
     /** @type {import("bun").Server|null} */
     this.server = null;
+
+    /**
+     * Prefix to all routes
+     * @type {string}
+     */
+    this.serverBase = "";
   }
 
   setServer(server) {
     this.server = server;
+  }
+
+  /**
+   *
+   * @param {string} base - prefix to all non static routes
+   */
+  setServerBase(prefix) {
+    this.serverBase = prefix;
   }
 
   setRequestIp(req) {
@@ -56,10 +70,13 @@ export default class Route {
    * @param  {...Middleware} middleware
    */
   get(url, ...middleware) {
-    if (url === "/" && this.baseUrl !== "") {
+    if (
+      (url === "/" && this.baseUrl !== "") ||
+      (url === "/" && this.serverBase !== "")
+    ) {
       url = "";
     }
-    const route = this.baseUrl + url;
+    const route = this.serverBase + this.baseUrl + url;
 
     let currentRoutes = {};
 
@@ -84,10 +101,13 @@ export default class Route {
    * @param  {...Middleware} middleware
    */
   post(url, ...middleware) {
-    if (url === "/" && this.baseUrl !== "") {
+    if (
+      (url === "/" && this.baseUrl !== "") ||
+      (url === "/" && this.serverBase !== "")
+    ) {
       url = "";
     }
-    const route = this.baseUrl + url;
+    const route = this.serverBase + this.baseUrl + url;
 
     let currentRoutes = {};
 
@@ -111,10 +131,13 @@ export default class Route {
    * @param  {...Middleware} middleware
    */
   put(url, ...middleware) {
-    if (url === "/" && this.baseUrl !== "") {
+    if (
+      (url === "/" && this.baseUrl !== "") ||
+      (url === "/" && this.serverBase !== "")
+    ) {
       url = "";
     }
-    const route = this.baseUrl + url;
+    const route = this.serverBase + this.baseUrl + url;
 
     let currentRoutes = {};
 
@@ -138,10 +161,13 @@ export default class Route {
    * @param  {...Middleware} middleware
    */
   delete(url, ...middleware) {
-    if (url === "/" && this.baseUrl !== "") {
+    if (
+      (url === "/" && this.baseUrl !== "") ||
+      (url === "/" && this.serverBase !== "")
+    ) {
       url = "";
     }
-    const route = this.baseUrl + url;
+    const route = this.serverBase + this.baseUrl + url;
 
     let currentRoutes = {};
 
@@ -165,10 +191,13 @@ export default class Route {
    * @param  {...Middleware} middleware
    */
   head(url, ...middleware) {
-    if (url === "/" && this.baseUrl !== "") {
+    if (
+      (url === "/" && this.baseUrl !== "") ||
+      (url === "/" && this.serverBase !== "")
+    ) {
       url = "";
     }
-    const route = this.baseUrl + url;
+    const route = this.serverBase + this.baseUrl + url;
 
     let currentRoutes = {};
 
@@ -192,10 +221,13 @@ export default class Route {
    * @param  {...Middleware} middleware
    */
   options(url, ...middleware) {
-    if (url === "/" && this.baseUrl !== "") {
+    if (
+      (url === "/" && this.baseUrl !== "") ||
+      (url === "/" && this.serverBase !== "")
+    ) {
       url = "";
     }
-    const route = this.baseUrl + url;
+    const route = this.serverBase + this.baseUrl + url;
 
     let currentRoutes = {};
 

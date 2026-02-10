@@ -17,7 +17,17 @@ export default class Route {
     middleware: Middleware[];
     /** @type {import("bun").Server|null} */
     server: Bun.Server<any> | null;
+    /**
+     * Prefix to all routes
+     * @type {string}
+     */
+    serverBase: string;
     setServer(server: any): void;
+    /**
+     *
+     * @param {string} base - prefix to all non static routes
+     */
+    setServerBase(prefix: any): void;
     setRequestIp(req: any): void;
     /**
      * @param {Middleware} handler

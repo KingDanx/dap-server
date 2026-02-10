@@ -2,8 +2,8 @@
   "name": "@kingdanx/dap-server",
   "module": "index.ts",
   "main": "index.ts",
-  "version": "1.0.13",
-  "date": "2026.02.09",
+  "version": "1.0.14",
+  "date": "2026.02.10",
   "type": "module",
   "types": "types/index.d.ts",
   "files": [
