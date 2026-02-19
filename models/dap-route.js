@@ -41,8 +41,15 @@ export default class Route {
 
   setRequestIp(req) {
     if (this.server) {
-      const { address } = this.server.requestIP(req);
-      req.ip = address.replace("::ffff:", "");
+      const xForwardedFor = req.headers.get("x-forwarded-for");
+      let clientIp = "Unknown";
+      if (xForwardedFor) {
+        clientIp = xForwardedFor.split(",")[0].trim();
+      } else {
+        const { address } = this.server.requestIP(req);
+        clientIp = address;
+      }
+      req.ip = clientIp.replace("::ffff:", "");
     }
   }
 
